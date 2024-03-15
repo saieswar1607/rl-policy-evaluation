@@ -1,43 +1,104 @@
 # POLICY EVALUATION
 
-## AIM:
+## AIM
+To develop a Python program to evaluate the given policy.
 
-To evaluate and compare the performance of two policies using policy evaluation.
+## PROBLEM STATEMENT
+The bandit slippery walk problem is a reinforcement learning problem in which an agent must learn to navigate a 7-state environment in order to reach a goal state. The environment is slippery, so the agent has a chance of moving in the opposite direction of the action it takes.
 
-## PROBLEM STATEMENT:
+### States
 
-* Given a set of states, actions, and transition probabilities, we are given two policies.
-* We want to evaluate the performance of the two policies by computing their state-value functions.
-* The policy with the higher state-value function is considered to be the better policy.
+The environment has 7 states:
+* Two Terminal States: **G**: The goal state & **H**: A hole state.
+* Five Transition states / Non-terminal States including  **S**: The starting state.
 
-## POLICY EVALUATION FUNCTION:
-```
-Developed By: 
-Reg.No : 212221240020
-```
-```python3
+### Actions
+
+The agent can take two actions:
+
+* R: Move right.
+* L: Move left.
+
+### Transition Probabilities
+
+The transition probabilities for each action are as follows:
+
+* **50%** chance that the agent moves in the intended direction.
+* **33.33%** chance that the agent stays in its current state.
+* **16.66%** chance that the agent moves in the opposite direction.
+
+For example, if the agent is in state S and takes the "R" action, then there is a 50% chance that it will move to state 4, a 33.33% chance that it will stay in state S, and a 16.66% chance that it will move to state 2.
+
+### Rewards
+
+The agent receives a reward of +1 for reaching the goal state (G). The agent receives a reward of 0 for all other states.
+
+### Graphical Representation
+<p align="center">
+<img width="600" src="https://github.com/ShafeeqAhamedS/RL_2_Policy_Eval/assets/93427237/e7af87e7-fe73-47fa-8bea-2040b7645e44"> </p>
+
+## POLICY EVALUATION FUNCTION
+### Formula
+<img width="350" src="https://github.com/ShafeeqAhamedS/RL_2_Policy_Eval/assets/93427237/e663bd3d-fc85-41c3-9a5c-dffa57eae250">
+
+### Program
+NAME :  D.Vishnu vardhan reddy</BR>
+REG NO :  212221230023
+
+```py
 def policy_evaluation(pi, P, gamma=1.0, theta=1e-10):
-    prev_V=np.zeros(len(P))
+   	'''Initialize 1st Iteration estimates of state-value function(V) to zero'''
+    prev_V = np.zeros(len(P), dtype=np.float64)
+
     while True:
-      V=np.zeros(len(P))
-      for s in range(len(P)):
-        for prob,next_state,reward,done in P[s][pi(s)]:
-          V[s]+=prob*(reward+gamma*prev_V[next_state]*(not done))
-      if np.max(np.abs(prev_V-V)):
-        break
-      prev_V=V.copy()
-    return V
+        '''Initialize the current iteration estimates to zero'''
+        V=np.zeros(len(P),dtype=np.float64)
+        
+        for s in range(len(P)):
+        
+            '''Update the value function for each state'''
+            for prob,next_state,reward,done in P[s][pi(s)]:
+                V[s] += prob * (reward + gamma * prev_V[next_state] * (not done))
+                
+            '''Check for convergence'''
+            if np.max(np.abs(prev_V-V))<theta:
+                break
+                
+            '''Update the previous state-value function'''
+            prev_V=V.copy()
+        return V
 ```
 
 ## OUTPUT:
+### Policy 1
+```
+Policy:
+|           | 01      < | 02      < | 03      < | 04      < | 05      < |           |
 
-#### Policy 1
+State-value function:
+|           | 01 0.00246 | 02   0.01 | 03 0.03322 | 04 0.10489 | 05 0.32625 |           |
 
-![1](https://github.com/saieswar1607/rl-policy-evaluation/assets/93427011/c557ba64-836c-4250-b400-6280a66c61c6)
+```
 
-#### Policy 2
+### Policy 2
+```
+Policy:
+|           | 01      > | 02      < | 03      > | 04      < | 05      > |           |
 
-![2](https://github.com/saieswar1607/rl-policy-evaluation/assets/93427011/7f147f43-7c2e-4500-8b7b-698cee0e0b96)
+State-value function:
+|           | 01   0.25 | 02 0.33333 | 03 0.58333 | 04 0.66667 | 05 0.91667 |           |
+```
+
+### Comparison:
+```
+array([ True, False, False, False, False, False,  True])
+```
+
+### Conclusion:
+
+![img](https://github.com/saieswar1607/rl-policy-evaluation/assets/93427011/97c7e284-d88a-4e5c-b87f-951ff3d2bbcc)
+
 
 ## RESULT:
-Thus, the evaluation and comparison of the two policies using policy evaluation has been done successfully and it is found that policy 2 is better.
+Thus, a Python program is developed to evaluate the given policy.
+
