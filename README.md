@@ -42,8 +42,8 @@ The agent receives a reward of +1 for reaching the goal state (G). The agent rec
 <img width="350" src="https://github.com/ShafeeqAhamedS/RL_2_Policy_Eval/assets/93427237/e663bd3d-fc85-41c3-9a5c-dffa57eae250">
 
 ### Program
-Developed By :  Sai Eswar Kandukuri</BR>
-Reg.No :  212221240020
+NAME :  Sai Eswar Kandukuri</BR>
+REG NO :  212221240020
 
 ```py
 def policy_evaluation(pi, P, gamma=1.0, theta=1e-10):
@@ -96,7 +96,7 @@ array([ True, False, False, False, False, False,  True])
 
 ### Conclusion:
 
-![img](https://github.com/saieswar1607/rl-policy-evaluation/assets/93427011/97c7e284-d88a-4e5c-b87f-951ff3d2bbcc)
+![4](https://github.com/saieswar1607/rl-policy-evaluation/assets/93427011/584ca6c7-cae5-46fe-adb4-3d7cdb26b9ee)
 
 
 ## RESULT:
